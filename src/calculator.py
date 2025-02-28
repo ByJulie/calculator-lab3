@@ -1,5 +1,6 @@
 import sys
-from src.utils import add, subtract, multiply, divide
+from src.utils import add, subtract, mul, div, expo
+
 
 def get_user_choice():
     """Prompt the user for an operation choice and validate input."""
@@ -9,12 +10,13 @@ def get_user_choice():
         print("2. Subtract")
         print("3. Multiply")
         print("4. Divide")
-        print("5. Exit")
+        print("5. Exponent")
 
         choice = input("Enter choice (1/2/3/4/5): ").strip()
         if choice in ("1", "2", "3", "4", "5"):
             return choice
         print("Invalid choice. Please enter a number between 1 and 5.")
+
 
 def get_number(prompt):
     """Prompt the user for a number and handle invalid input."""
@@ -24,14 +26,11 @@ def get_number(prompt):
         except ValueError:
             print("Invalid input. Please enter a valid number.")
 
+
 def main():
     """Main function for the calculator."""
     while True:
         choice = get_user_choice()
-        
-        if choice == "5":
-            print("Exiting calculator. Goodbye!")
-            sys.exit()
 
         num1 = get_number("Enter first number: ")
         num2 = get_number("Enter second number: ")
@@ -43,14 +42,17 @@ def main():
             result = subtract(num1, num2)
             operation = "Subtraction"
         elif choice == "3":
-            result = multiply(num1, num2)
+            result = mul(num1, num2)
             operation = "Multiplication"
         elif choice == "4":
             if num2 == 0:
                 print("Error: Division by zero is not allowed.")
                 continue
-            result = divide(num1, num2)
+            result = div(num1, num2)
             operation = "Division"
+        elif choice == "5":
+            result = expo(num1, num2)
+            operation = "Exponentiation"
 
         print(f"{operation} result: {result}")
 
@@ -58,6 +60,7 @@ def main():
         if another != "y":
             print("Goodbye!")
             break
+
 
 if __name__ == "__main__":
     main()
